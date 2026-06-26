@@ -29,10 +29,19 @@ resource "terraform_data" "mongodb" {
 
   }
   
+  #terraform copies this file to mongodb server
+provisioner "file" {
+  source = "bootstrap.sh"
+  destination = "/tmp/bootstrap.sh"
+}
+
+
   provisioner "remote-exec" {
     inline = [
-      "echo hello world"
+     "chmod +x /temp/bootstrap.sh",
+     "sudo sh chmod +x /temp/bootstrap.sh"
     ]
   }
 
 }
+
