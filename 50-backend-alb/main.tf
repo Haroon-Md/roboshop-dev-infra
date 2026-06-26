@@ -5,7 +5,7 @@ resource "aws_lb" "backend_alb" {
   security_groups    = [local.backend_alb_sg_id]
   subnets            = local.private_subnet_ids
 
-  enable_deletion_protection = true #prevents accidental deletion from UI
+  enable_deletion_protection = false #prevents accidental deletion from UI
 
 
   # access_logs {
@@ -42,13 +42,13 @@ resource "aws_lb_listener" "front_end" {
 
 }
 
-  #THE TARGET GROUP OR TARGET TEAM IS NOT YET CREATED SO WE ARE USING FIXED RESPONSE FOR TESTING PURPOSE 
-  # default_action {
-  #     type = "redirect"
+#THE TARGET GROUP OR TARGET TEAM IS NOT YET CREATED SO WE ARE USING FIXED RESPONSE FOR TESTING PURPOSE 
+# default_action {
+#     type = "redirect"
 
-  #     redirect {
-  #         port = "443"
-  #         protocol = "HTTPS"
-  #         status_code = "HTTP_301"
-  #     }
-  # }
+#     redirect {
+#         port = "443"
+#         protocol = "HTTPS"
+#         status_code = "HTTP_301"
+#     }
+# }
