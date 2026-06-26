@@ -39,7 +39,7 @@ provisioner "file" {
   provisioner "remote-exec" {
     inline = [
      "chmod +x /temp/bootstrap.sh",
-     "sudo sh chmod +x /temp/bootstrap.sh"
+     "sudo sh /temp/bootstrap.sh"
     ]
   }
 
