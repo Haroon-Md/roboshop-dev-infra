@@ -39,7 +39,56 @@ resource "terraform_data" "mongodb" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh"
+      #"sudo sh /tmp/bootstrap.sh "
+      "sudo sh /tmp/bootstrap.sh mongodb"
+    ]
+  }
+
+}
+
+
+resource "aws_instance" "redis" {
+  ami = local.ami_id
+  #  "ami-0220d79f3f480ecf5"
+  instance_type          = "t3.micro"
+  vpc_security_group_ids = [local.redis_sg_id]
+  subnet_id              = local.database_subnet_id
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.common_name_suffix}-redis" #roboshop-dev-redis
+    }
+
+  )
+
+}
+
+
+resource "terraform_data" "redis" {
+  triggers_replace = [
+    aws_instance.redis.id
+  ]
+
+
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+    host     = aws_instance.redis.private_ip
+
+  }
+
+  #terraform copies this file to redis server
+  provisioner "file" {
+    source      = "bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
+  }
+
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/bootstrap.sh",
+      "sudo sh /tmp/bootstrap.sh redis"
     ]
   }
 
@@ -47,18 +96,18 @@ resource "terraform_data" "mongodb" {
 
 
 
-# # terraform copies this file to mongodb server
-# provisioner "file" {
-#   source      = "bootstrap.sh"
-#   destination = "/tmp/bootstrap.sh"
-# }
+/* # terraform copies this file to mongodb server
+provisioner "file" {
+  source      = "bootstrap.sh"
+  destination = "/tmp/bootstrap.sh"
+}
 
-# provisioner "remote-exec" {
-#   inline = [
-#     "chmod +x /tmp/bootstrap.sh",
-#     # "sudo sh /tmp/bootstrap.sh"
-#     "sudo sh /tmp/bootstrap.sh mongodb"
-#   ]
-# }
+provisioner "remote-exec" {
+  inline = [
+    "chmod +x /tmp/bootstrap.sh",
+    # "sudo sh /tmp/bootstrap.sh"
+    "sudo sh /tmp/bootstrap.sh mongodb"
+  ]
+} */
 
 
