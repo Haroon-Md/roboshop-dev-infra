@@ -80,6 +80,6 @@ resource "aws_security_group_rule" "mongodb_catalogue" {
   type                     = "ingress"
   from_port                = 27017
   protocol                 = "tcp"
-  to_port                  = 22
+  to_port                  = 27017
 
 }
