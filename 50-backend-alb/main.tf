@@ -42,18 +42,6 @@ resource "aws_lb_listener" "front_end" {
 
 }
 
-#THE TARGET GROUP OR TARGET TEAM IS NOT YET CREATED SO WE ARE USING FIXED RESPONSE FOR TESTING PURPOSE 
-# default_action {
-#     type = "redirect"
-
-#     redirect {
-#         port = "443"
-#         protocol = "HTTPS"
-#         status_code = "HTTP_301"
-#     }
-# }
-
-
 resource "aws_route53_record" "backend_alb" {
   zone_id = var.zone_id
   name    = "*.backend-alb-${var.environment}.${var.domain_name}"
@@ -66,3 +54,4 @@ resource "aws_route53_record" "backend_alb" {
     evaluate_target_health = true
   }
 }
+
