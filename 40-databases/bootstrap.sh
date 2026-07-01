@@ -31,4 +31,4 @@ git clone $REPO_URL
 cd $ANSIBLE_DIR
 fi 
 
-ansible-playbook -e component=$component  main.yaml 
+ansible-playbook -e component=$component -e environment=$2 main.yaml 
