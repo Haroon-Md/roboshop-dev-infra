@@ -2,7 +2,7 @@
 
 #growing the /home volume size to 30GB
 sudo growpart /dev/nvme0n1 4
-lvextend -L 30G /dev/RootVG/rootVol
+lvextend -L 30G /dev/RootVG/homeVol
 xfs_growfs /home 
 
 sudo yum install -y yum-utilis
