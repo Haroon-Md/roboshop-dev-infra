@@ -2,7 +2,7 @@
 component=$1
 environment=$2
 dnf install ansible -y
-REPO_URL=https://github.com/Haroon-Md/ansible-roboshop-roles-tf.git
+REPO_URL=https://github.com/Haroon-Md/ansible-roboshop-roles-utf.git
 REPO_DIR=/opt/roboshop/ansible
 ANSIBLE_DIR=ansible-roboshop-roles-tf
 
