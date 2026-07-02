@@ -13,6 +13,7 @@ sudo dnf install -y ansible python3-boto3 python3-botocore
 #creating databases
 cd /home/ec2-user
 git clone https://github.com/Haroon-Md/roboshop-dev-infra.git
+chown ec2-user:ec2-user -R roboshop-dev-infra
 cd roboshop-dev-infra/40-databases
 terraform init
 terraform apply -auto-approve
